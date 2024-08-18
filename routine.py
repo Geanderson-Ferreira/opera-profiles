@@ -77,12 +77,11 @@ def get_data(hotel, token):
 
         profile = [x for x in profiles_data if x['profileIdList'][0]['id'] == PROFILE_ID][0]
 
-        try:
-            TAX_ID = profile.get('profile',{}).get('taxInfo',{}).get('tax1No','')
-        except Exception as erro:
-            pass
-
+        TAX_ID = profile.get('profile',{}).get('taxInfo',{}).get('tax1No','')
         GUEST_BIRTH_DATE = profile.get('profile',{}).get('customer',{}).get('birthDate','')
+
+        if not GUEST_BIRTH_DATE:
+            GUEST_BIRTH_DATE = ''
 
         identifications = profile.get('profile',{}).get('customer',{}).get('identifications',False)
 
@@ -90,35 +89,13 @@ def get_data(hotel, token):
             CPF = ''
             PASSPORT = ''
             RG = ''
-            
+            identifications = []
         else:
-        
             identifications = identifications.get('identificationInfo',[])
 
         if len(identifications) > 0:
             if len([x for x in identifications if x['identification']['idType'] == 'PAS']) > 0:
                 PASSPORT = [x for x in identifications if x['identification']['idType'] == 'PAS'][0]
-
-
-        # # print(profile, '\n\n')
-
-        # if len(profile['profileIdList']) > 1:
-        #     if profile['profileIdList'][1]['type'] == 'CorporateId':
-        #         PROFILE_CORPORATE_ID = profile['profileIdList'][1]['id']
-        #     else:
-        #         PROFILE_CORPORATE_ID = ''
-
-        # ADDRESSESS_COUNT = len(profile['profile']['addresses']['addressInfo'])
-
-        # if len(ADDRESSESS_COUNT) > 0:
-        #     GUEST_ADDRESS = ''
-
-        # lista = [PROFILE_CORPORATE_ID, PROFILE_ID, GUEST_ADDRESS]
-
-        # print("\nRESERVA:", RESV_CONF)
-        # for i in lista:
-        #     print(i)
-        # print(profile)
 
         for regra in [x for x in regras if x['rule_type'] == 'R']:
 
