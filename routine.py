@@ -82,6 +82,9 @@ def get_data(hotel, token):
         except Exception as erro:
             pass
 
+        GUEST_BIRTH_DATE = profile.get('profile',{}).get('customer',{}).get('birthDate','')
+
+
         # # print(profile, '\n\n')
 
         # if len(profile['profileIdList']) > 1:
