@@ -84,6 +84,22 @@ def get_data(hotel, token):
 
         GUEST_BIRTH_DATE = profile.get('profile',{}).get('customer',{}).get('birthDate','')
 
+        identifications = profile.get('profile',{}).get('customer',{}).get('identifications',False)
+
+        if not identifications:
+            CPF = ''
+            PASSPORT = ''
+            RG = ''
+
+            return False
+        else:
+        
+            identifications = identifications.get('identificationInfo',[])
+
+        if len(identifications) > 0:
+            if len([x for x in identifications if x['identification']['idType'] == 'PAS']) > 0:
+                PASSPORT = [x for x in identifications if x['identification']['idType'] == 'PAS'][0]
+
 
         # # print(profile, '\n\n')
 

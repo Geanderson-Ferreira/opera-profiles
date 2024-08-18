@@ -7,8 +7,8 @@ from src.models import *
 engine = create_engine(environ['DB_CONNECTION'], echo=False)
 Session = sessionmaker(bind=engine)
 
-descricao_da_regra = "CPF está vazio"
-codigo_da_regra = "TAX_ID == ''"
+descricao_da_regra = "Data de Nascimento está vazia"
+codigo_da_regra = "GUEST_BIRTH_DATE == ''"
 categoria = "R"
 
 # create_rule(Session(), descricao_da_regra,codigo_da_regra,categoria, True)
@@ -16,4 +16,4 @@ categoria = "R"
 # engine = create_engine(environ['DB_CONNECTION'], echo=False)
 # Session = sessionmaker(bind=engine)
 
-# assign_rule_to_hotel(Session(), 'H5519', 3)
+assign_rule_to_hotel(Session(), 'H6665', 4)
