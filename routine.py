@@ -90,8 +90,7 @@ def get_data(hotel, token):
             CPF = ''
             PASSPORT = ''
             RG = ''
-
-            return False
+            
         else:
         
             identifications = identifications.get('identificationInfo',[])
