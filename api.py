@@ -35,8 +35,6 @@ async def get_reservations_by_rules(
         raise HTTPException(status_code=401, detail=checker['info'])
         
 
-
-
     return get_data(hotel_id, token)
 
 # Para testes e execução local, use o seguinte código:

@@ -36,6 +36,7 @@ def get_data(hotel, token):
     final_data = []
     for reservation in in_house_reservations:
         
+        #Reserva os valores dos campos de reservas
         RESV_ID = reservation['reservationIdList'][0]['id']
         RESV_CONF = reservation['reservationIdList'][1]['id']
         PROFILE_ID = reservation['reservationGuest']['id']
@@ -74,7 +75,13 @@ def get_data(hotel, token):
         GUEST_SURNAME = reservation.get('reservationGuest',{}).get('surname','')
         GUEST_LANGUAGE = reservation.get('reservationGuest',{}).get('language','')
 
-        # profile = [x for x in profiles_data if x['profileIdList'][0]['id'] == PROFILE_ID][0]
+        profile = [x for x in profiles_data if x['profileIdList'][0]['id'] == PROFILE_ID][0]
+
+        try:
+            TAX_ID = profile.get('profile',{}).get('taxInfo',{}).get('tax1No','')
+        except Exception as erro:
+            pass
+
         # # print(profile, '\n\n')
 
         # if len(profile['profileIdList']) > 1:
