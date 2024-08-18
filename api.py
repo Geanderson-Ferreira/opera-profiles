@@ -32,7 +32,8 @@ async def get_reservations_by_rules(
     checker = check_token(hotel_id, token)
 
     if not checker['token_is_valid']:
-        return checker['info']
+        raise HTTPException(status_code=401, detail=checker['info'])
+        
 
 
 
