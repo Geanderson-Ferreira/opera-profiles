@@ -79,7 +79,7 @@ def get_data(hotel, token):
 
         TAX_ID = profile.get('profile',{}).get('taxInfo',{}).get('tax1No','')
         GUEST_BIRTH_DATE = profile.get('profile',{}).get('customer',{}).get('birthDate','')
-        GENDER = profile.get('profile',{}).get('customer',{}).get('gender', )
+        GENDER = profile.get('profile',{}).get('customer',{}).get('gender', '')
 
         if not GUEST_BIRTH_DATE:
             GUEST_BIRTH_DATE = ''
