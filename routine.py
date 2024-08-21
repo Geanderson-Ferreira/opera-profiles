@@ -66,7 +66,7 @@ def get_data(hotel, token):
         HAS_SHARE = len(reservation.get('sharedGuests')) > 0
         GUEST_PROFILE_TYPE = reservation['reservationGuest']['nameType']
         ROOM_STATUS = reservation['roomStatus']
-        PAYMENT_METHOD = reservation['reservationPaymentMethod']['paymentMethod']
+        PAYMENT_METHOD = reservation.get('reservationPaymentMethod',{}).get('paymentMethod','')
         SOURCE_OF_SALE = reservation['sourceOfSale']['sourceType']
         SOURCE_OF_SALE_CODE = reservation['sourceOfSale']['sourceCode']
         HOTEL_ID = reservation['hotelId']
