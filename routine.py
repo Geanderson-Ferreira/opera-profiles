@@ -48,7 +48,10 @@ def get_data(hotel, token):
         ROOM_TYPE = reservation['roomStay']['roomType']
         NUMBER_OF_ROOMS = reservation['roomStay']['numberOfRooms']
         ROOM_NUMBER = reservation['roomStay']['roomId']
-        RATE_CODE = reservation['roomStay']['ratePlanCode']
+        
+        try: RATE_CODE = reservation['roomStay']['ratePlanCode']
+        except: RATE_CODE = ''
+
         RATE_AMOUNT = reservation['roomStay']['rateAmount']['amount']
         CURRENCY_CODE = reservation['roomStay']['rateAmount']['currencyCode']
         BOOKING_CHANEL_CODE = reservation.get('roomStay',{}).get('bookingChannelCode','')
