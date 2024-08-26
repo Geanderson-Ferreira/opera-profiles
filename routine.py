@@ -89,6 +89,7 @@ def get_data(hotel, token):
 
         identifications = profile.get('profile',{}).get('customer',{}).get('identifications',False) # ok
 
+
         if not identifications:
             CPF = ''
             PASSPORT = ''
