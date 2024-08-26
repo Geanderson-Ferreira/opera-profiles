@@ -36,58 +36,58 @@ def get_data(hotel, token):
     final_data = []
     for reservation in in_house_reservations:
         
-        #Reserva os valores dos campos de reservas
+        # ----------------------- Reservation Attributes
         RESV_ID = reservation['reservationIdList'][0]['id']
         RESV_CONF = reservation['reservationIdList'][1]['id']
-        PROFILE_ID = reservation['reservationGuest']['id']
-        ARRIVAL_DATE = reservation['roomStay']['arrivalDate']
-        DEPARTURE_DATE = reservation['roomStay']['departureDate']
-        ADULT_COUNT = reservation['roomStay']['adultCount']
-        CHILD_COUNT = reservation['roomStay']['childCount']
-        ROOM_CLASS = reservation['roomStay']['roomClass']
-        ROOM_TYPE = reservation['roomStay']['roomType']
-        NUMBER_OF_ROOMS = reservation['roomStay']['numberOfRooms']
-        ROOM_NUMBER = reservation['roomStay']['roomId']
-        
-        try: RATE_CODE = reservation['roomStay']['ratePlanCode']
-        except: RATE_CODE = ''
-
-        RATE_AMOUNT = reservation['roomStay']['rateAmount']['amount']
-        CURRENCY_CODE = reservation['roomStay']['rateAmount']['currencyCode']
-        BOOKING_CHANEL_CODE = reservation.get('roomStay',{}).get('bookingChannelCode','')
-        FIXED_RATE = reservation['roomStay']['fixedRate']
-        GUARANTEE_CODE = reservation['roomStay']['guarantee']['guaranteeCode']
-        MARKET_CODE = reservation['roomStay']['marketCode']
-        SOURCE_CODE = reservation['roomStay']['sourceCode']
-        SOURCE_CODE_DESCRIPTION = reservation['roomStay']['sourceCodeDescription']
-        BALANCE_AMOUNT = reservation['roomStay']['balance']['amount']
-        ROOM_NUMBER_LOCKED = reservation['roomStay']['roomNumberLocked']
-        PSEUDO_ROOM = reservation['roomStay']['pseudoRoom']
+        PROFILE_ID = reservation.get('reservationGuest',{}).get('id','') # Ok
+        ARRIVAL_DATE = reservation.get('roomStay', {}).get('arrivalDate','') # Ok
+        DEPARTURE_DATE = reservation.get('roomStay',{}).get('departureDate','') # Ok
+        ADULT_COUNT = reservation.get('roomStay',{}).get('adultCount','') # Ok
+        CHILD_COUNT = reservation.get('roomStay',{}).get('childCount','') # Ok
+        ROOM_CLASS = reservation.get('roomStay',{}).get('roomClass','')  # Ok
+        ROOM_TYPE = reservation.get('roomStay',{}).get('roomType','') # Ok
+        NUMBER_OF_ROOMS = reservation.get('roomStay',{}).get('numberOfRooms','') # Ok
+        ROOM_NUMBER = reservation.get('roomStay',{}).get('roomId','') # Ok
+        RATE_CODE = reservation.get('roomStay',{}).get('ratePlanCode','') # ok
+        RATE_AMOUNT = reservation.get('roomStay',{}).get('rateAmount',{}).get('amount','') # ok
+        CURRENCY_CODE = reservation.get('roomStay',{}).get('rateAmount',{}).get('currencyCode','') # ok
+        BOOKING_CHANEL_CODE = reservation.get('roomStay',{}).get('bookingChannelCode','') # ok
+        FIXED_RATE = reservation.get('roomStay',{}).get('fixedRate','') # ok
+        GUARANTEE_CODE = reservation.get('roomStay',{}).get('guarantee',{}).get('guaranteeCode','') # ok
+        MARKET_CODE = reservation.get('roomStay',{}).get('marketCode','') # ok
+        SOURCE_CODE = reservation.get('roomStay',{}).get('sourceCode','') # ok
+        SOURCE_CODE_DESCRIPTION = reservation.get('roomStay',{}).get('sourceCodeDescription','') # ok
+        BALANCE_AMOUNT = reservation.get('roomStay',{}).get('balance',{}).get('amount','') # ok
+        ROOM_NUMBER_LOCKED = reservation.get('roomStay',{}).get('roomNumberLocked','') # ok
+        PSEUDO_ROOM = reservation.get('roomStay',{}).get('pseudoRoom','') # ok
         HAS_SHARE = len(reservation.get('sharedGuests')) > 0
-        GUEST_PROFILE_TYPE = reservation['reservationGuest']['nameType']
-        ROOM_STATUS = reservation['roomStatus']
-        PAYMENT_METHOD = reservation.get('reservationPaymentMethod',{}).get('paymentMethod','')
-        SOURCE_OF_SALE = reservation['sourceOfSale']['sourceType']
-        SOURCE_OF_SALE_CODE = reservation['sourceOfSale']['sourceCode']
-        HOTEL_ID = reservation['hotelId']
-        HOTEL_NAME = reservation['hotelName']
-        CREATE_DATE_TIME = reservation['createDateTime']
-        LAST_MODIFIED_DATE_TIME = reservation['lastModifyDateTime']
-        RESERVATION_STATUS = reservation['reservationStatus']
-        GUEST_FIRST_NAME = reservation.get('reservationGuest',{}).get('givenName','')
-        GUEST_SURNAME = reservation.get('reservationGuest',{}).get('surname','')
-        GUEST_LANGUAGE = reservation.get('reservationGuest',{}).get('language','')
+        GUEST_PROFILE_TYPE = reservation.get('reservationGuest',{}).get('nameType','') # ok
+        ROOM_STATUS = reservation.get('roomStatus','') # ok
+        PAYMENT_METHOD = reservation.get('reservationPaymentMethod',{}).get('paymentMethod','') # ok
+        SOURCE_OF_SALE = reservation.get('sourceOfSale',{}).get('sourceType','') # ok
+        SOURCE_OF_SALE_CODE = reservation.get('sourceOfSale',{}).get('sourceCode','') # ok
+        HOTEL_ID = reservation.get('hotelId','') # ok
+        HOTEL_NAME = reservation.get('hotelName','') # ok
+        CREATE_DATE_TIME = reservation.get('createDateTime','') # ok
+        LAST_MODIFIED_DATE_TIME = reservation.get('lastModifyDateTime','') # ok
+        RESERVATION_STATUS = reservation.get('reservationStatus','') # ok
+        GUEST_FIRST_NAME = reservation.get('reservationGuest',{}).get('givenName','') # ok
+        GUEST_SURNAME = reservation.get('reservationGuest',{}).get('surname','') # ok
+        GUEST_LANGUAGE = reservation.get('reservationGuest',{}).get('language','') # ok
 
+        # Get the Json for the profile
         profile = [x for x in profiles_data if x['profileIdList'][0]['id'] == PROFILE_ID][0]
 
-        TAX_ID = profile.get('profile',{}).get('taxInfo',{}).get('tax1No','')
-        GUEST_BIRTH_DATE = profile.get('profile',{}).get('customer',{}).get('birthDate','')
-        GENDER = profile.get('profile',{}).get('customer',{}).get('gender', '')
+
+        # ----------------------- Profile Attributes
+        TAX_ID = profile.get('profile',{}).get('taxInfo',{}).get('tax1No','') # ok
+        GUEST_BIRTH_DATE = profile.get('profile',{}).get('customer',{}).get('birthDate','') # ok
+        GENDER = profile.get('profile',{}).get('customer',{}).get('gender', '') # ok
 
         if not GUEST_BIRTH_DATE:
             GUEST_BIRTH_DATE = ''
 
-        identifications = profile.get('profile',{}).get('customer',{}).get('identifications',False)
+        identifications = profile.get('profile',{}).get('customer',{}).get('identifications',False) # ok
 
         if not identifications:
             CPF = ''
